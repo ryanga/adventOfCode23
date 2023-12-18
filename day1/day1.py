@@ -1,9 +1,16 @@
+
+
+def extract_calibration_digits(line):
+    digits = [int(d) for d in line if d.isdigit()]
+    constructed_digit = int(str(digits[0]) + str(digits[-1]))
+    #debug
+    print(line + " found digits: " + str(digits) + " constructed digit: " + str(constructed_digit))
+    return constructed_digit
+
 with open("input_day1.txt", "r") as file:
+#with open("test_day1.txt", "r") as file:
     sum_constructed_digit = 0
     for line in file:
-        line = file.readline()
-        digits = [int(d) for d in line if d.isdigit()]
-        constructed_digit = int(str(digits[0]) + str(digits[-1]))
-        sum_constructed_digit += constructed_digit
-        print(line + " found digits: " + str(digits) + " constructed digit: " + str(constructed_digit))
-    print(sum_constructed_digit)
+        sum_constructed_digit += extract_calibration_digits(line)
+        #print(line + " constructed digit: " + str(constructed_digit))
+print(sum_constructed_digit)
