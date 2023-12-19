@@ -1,3 +1,5 @@
+from functools import reduce
+import operator
 import re
 DEBUG = True 
 
@@ -5,6 +7,7 @@ DEBUG = True
 #can determine this by finding the largest # of each color across all draws
 
 def check_game(line_dict):
+    total = 0
     for key in line_dict:
         print("checking game: ", key, " with draws: ", line_dict[key])
         max_values = [0, 0, 0]  # Initialize max values at positions 0, 1, and 2
@@ -12,10 +15,17 @@ def check_game(line_dict):
             max_values[0] = max(max_values[0], draw[0])  # Update max value at position 0
             max_values[1] = max(max_values[1], draw[1])  # Update max value at position 1
             max_values[2] = max(max_values[2], draw[2])  # Update max value at position 2
-        print("for game: ", key, " max values: ", max_values)        
-    return max_values
-#with open("input_d2p1.txt", "r") as file:
-with open("test_d2p1.txt", "r") as file:
+        print("for game: ", key, " max values: ", max_values, " which is a power of: ", reduce(operator.mul, max_values, 1))  
+        total += reduce(operator.mul, max_values, 1)  
+    print("total: ", total)
+    return total
+
+# the final output needs to be 
+# The power of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together.
+
+
+with open("input_d2p1.txt", "r") as file:
+#with open("test_d2p1.txt", "r") as file:
     line_dict = {}
     for line in file:
         if DEBUG: print(line)
